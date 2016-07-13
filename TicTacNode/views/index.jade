@@ -1,0 +1,47 @@
+﻿extends layout
+
+
+block content
+    div(ng-app="AngularApp",ng-controller="MainController as ctrl" ng-init="ctrl.SetChatId(#{chatid})")
+      h1= title
+      p Welcome to #{title} chat id #{chatid} you're player {{ctrl.Symbol}}
+
+      div(class="messageBox")
+        {{ctrl.message}}
+
+      br
+      input(type="text", ng-model="ctrl.MessageToSend")
+      div
+        button(ng-click="ctrl.SendMessage()").
+            Submitte
+
+        div(class="board")
+            div(class="box" ng-class="ctrl.getCellClass(0)" ng-click="ctrl.SendMove(0,0)")
+            div(class="box" ng-class="ctrl.getCellClass(1)" ng-click="ctrl.SendMove(0,1)")
+            div(class="box" ng-class="ctrl.getCellClass(2)" ng-click="ctrl.SendMove(0,2)")
+            div(class="box" ng-class="ctrl.getCellClass(3)" ng-click="ctrl.SendMove(1,0)")
+            div(class="box" ng-class="ctrl.getCellClass(4)" ng-click="ctrl.SendMove(1,1)")
+            div(class="box" ng-class="ctrl.getCellClass(5)" ng-click="ctrl.SendMove(1,2)")
+            div(class="box" ng-class="ctrl.getCellClass(6)" ng-click="ctrl.SendMove(2,0)")
+            div(class="box" ng-class="ctrl.getCellClass(7)" ng-click="ctrl.SendMove(2,1)")
+            div(class="box" ng-class="ctrl.getCellClass(8)" ng-click="ctrl.SendMove(2,2)")
+
+        div(ng-if="ctrl.youWon" class="winbox")
+            p You Win
+
+        div(ng-if="ctrl.youLose" class="losebox")
+            p You Lose
+
+        div(ng-if="ctrl.youDraw" class="drawbox")
+            p Draw
+            
+       
+            
+
+     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js")
+
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/Controllers/MainController.js")
+    script(src="/javascripts/Factories/ChatFactory.js")
+    script(src="/javascripts/AngularApp/App.js")
+
